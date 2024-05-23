@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+      header {
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 5px 5px 0 0;
+      }
+      h1 {
+        margin: 0;
+        color: #4caf50;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin: 10px 0 5px;
+      }
+      input,
+      button {
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+        border: none;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      a {
+        color: #4caf50;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Profile</h1>
+      </header>
+      <form action="/profile" method="POST">
+        <label for="fullName">Full Name</label>
+        <input
+          required
+          type="text"
+          id="fullName"
+          name="fullName"
+          value="<%= user.UserProfile ? user.UserProfile.fullName : '' %>"
+        />
+
+        <label for="dateOfBirth">Date of Birth</label>
+        <input
+          required
+          type="date"
+          id="dateOfBirth"
+          name="dateOfBirth"
+          value="<%= user.UserProfile ? user.UserProfile.dateOfBirth.toISOString().substr(0, 10) : '' %>"
+        />
+
+        <label for="address">Address</label>
+        <input
+          required
+          type="text"
+          id="address"
+          name="address"
+          value="<%= user.UserProfile ? user.UserProfile.address : '' %>"
+        />
+
+        <button type="submit">Update Profile</button>
+      </form>
+      <a href="/dashboard">Back to Dashboard</a>
+    </div>
+  </body>
+</html>

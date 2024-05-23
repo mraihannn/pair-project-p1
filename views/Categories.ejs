@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        width: 100%;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 5px 5px 0 0;
+      }
+      h1 {
+        margin: 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f4f4f9;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      a {
+        color: #4caf50;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Categories</h1>
+      </header>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach(category => { %>
+          <tr>
+            <td><%= category.name %></td>
+            <td><%= category.type %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <a href="/categories/new">Add New Category</a>
+      <a href="/dashboard">Back to Dashboard</a>
+    </div>
+  </body>
+</html>

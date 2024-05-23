@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+      }
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h1 {
+        margin: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      nav a {
+        color: #4caf50;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }
+      form {
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      input[type="submit"] {
+        padding: 10px 15px;
+        border: none;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f4f4f9;
+      }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+        Welcome, <%= user.UserProfile && user.UserProfile.fullName ?
+        user.UserProfile.fullName : user.email %>
+      </h1>
+    </header>
+    <div class="container">
+      <nav>
+        <a href="/transactions/new">Add Transaction</a>
+        <a href="/categories">Manage Categories</a>
+        <% if (user.role === "admin") { %>
+        <a href="/admin/users">Admin Page</a>
+        <% } %>
+        <a href="/profile">Go to Profile</a>
+        <a href="/logout">Logout</a>
+      </nav>
+
+      <h2>Your Transactions</h2>
+      <nav>
+        <a href="/dashboard">All</a>
+        <a href="/dashboard?filter=Income">Income</a>
+        <a href="/dashboard?filter=Expense">Expense</a>
+      </nav>
+
+      <form action="">
+        <input
+          type="text"
+          name="search"
+          placeholder="Enter the name of the Transaction"
+        />
+        <input type="submit" value="Search" />
+      </form>
+
+      <div>
+        <h3>
+          Report For <%= new Date().toLocaleString('default', { month: 'long' })
+          %>
+        </h3>
+        <p>Average Income per day : <%= summary.averageIncome %></p>
+        <p>Average Expense per day : <%= summary.averageExpense %></p>
+        <p><%= summary.message %></p>
+      </div>
+      <% if (!user.Transactions.length<1) { %>
+      <a href="/download-report">Download PDF Report</a>
+      <% } %>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% user.Transactions.forEach(transaction => { %>
+          <tr>
+            <td><%= transaction.amountRupiah %></td>
+            <td><%= transaction.Category.name %></td>
+            <td><%= transaction.Category.type %></td>
+            <td><%= transaction.date.toDateString() %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
